@@ -18,7 +18,15 @@ public abstract class FeatureBasics {
 		this.plugin = plugin;
 	}
 	
-	public abstract void enableFeature();
+	/**
+	 * Enable features	
+	 */
+	public abstract void enableFeatures();
+	
+	/**
+	 * Disable features
+	 */
+	public abstract void disableFeatures();
 	
 	/**
 	 * Registers listener

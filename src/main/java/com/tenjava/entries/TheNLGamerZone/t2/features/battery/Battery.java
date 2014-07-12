@@ -10,7 +10,12 @@ public class Battery extends FeatureBasics{
 	}
 
 	@Override
-	public void enableFeature() {
+	public void enableFeatures() {
 		registerListener(null);
+	}
+
+	@Override
+	public void disableFeatures() { 
+		//Does nothing, Feature class deals with this
 	}
 }

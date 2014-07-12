@@ -1,12 +1,17 @@
 package com.tenjava.entries.TheNLGamerZone.t2;
 
+import java.lang.reflect.Constructor;
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 import com.tenjava.entries.TheNLGamerZone.t2.features.FeatureBasics;
+import com.tenjava.entries.TheNLGamerZone.t2.features.battery.Battery;
 
 public enum Feature {
-	BATTERY(ChatColor.YELLOW + "Battery", null, Material.STONE, Material.STONE)
+	BATTERY(ChatColor.YELLOW + "Battery", Battery.class, Material.STONE, Material.STONE)
 	, CHARGER_POWER_SUPPLY(ChatColor.YELLOW + "Charger power supply", null, Material.SADDLE, Material.SAND)
 	, CHARGER(ChatColor.YELLOW + "Charger", null, Material.RAILS, Material.BEDROCK);
 	
@@ -14,6 +19,7 @@ public enum Feature {
 	private final Class<? extends FeatureBasics> fbClass;
 	private final Material mat;
 	private final Material b;
+	private FeatureBasics fb;
 	
 	/**
 	 * @param name
@@ -55,5 +61,22 @@ public enum Feature {
 	
 	public Material getBlock() {
 		return b;
+	}
+	
+	public void enable(TenJava plugin, boolean m) {
+		if(m) {
+			fb.enableFeatures();
+		} else {
+			try {
+				Constructor<? extends FeatureBasics> c = fbClass.getConstructor(TenJava.class, String.class);
+				this.fb = c.newInstance(name, plugin);
+			} catch(Exception e) {
+				Bukkit.getLogger().log(Level.SEVERE, "Failed to start feature");
+			}	
+		}
+	}
+	
+	public void disable() {
+		fb.disableFeatures();
 	}
 }

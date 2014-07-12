@@ -1,3 +1,7 @@
 name: TheNLGamerZone-t2
 main: com.tenjava.entries.TheNLGamerZone.t2.TenJava
 version: '${project.version}'
+author: TheNLGamerZone
+commands:
+  test:
+    usage: /<command>
