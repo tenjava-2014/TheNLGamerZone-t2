@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.BlockFace;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -61,12 +62,15 @@ public class BatteryListener implements Listener {
 				return;
 			}
 			
-			e.getPlayer().sendMessage("TETS");
 			e.getBlock().setType(Material.REDSTONE_BLOCK);
 			spower.put(e.getBlock().getLocation(), p);
 			power.remove(e.getPlayer().getItemInHand());
-			TenJava.data.set("Batteries." + e.getBlock().getLocation().getX() + "-" + e.getBlock().getLocation().getY() + "-" + e.getBlock().getLocation().getZ() + "-" + e.getBlock().getLocation().getWorld().getName(), power);
-			TenJava.saveData();
+			
+			/*TenJava.data.set("Batteries." + TenJava.toConfigString(loc.getX()) + "_" + TenJava.toConfigString(loc.getY()) + "_" + TenJava.toConfigString(loc.getZ()) + "_" + loc.getWorld().getName(), BatteryListener.getPower(loc));
+			TenJava.saveData();*/
+		} else if(e.getBlock().getType() == Material.DIAMOND_BLOCK
+				&& spower.containsKey(e.getBlock().getRelative(BlockFace.DOWN).getLocation())) {
+			setPower(e.getBlock().getRelative(BlockFace.DOWN).getLocation(), getPower(e.getBlock().getRelative(BlockFace.DOWN).getLocation()) + 1);
 		}
 	}
 	
@@ -79,7 +83,6 @@ public class BatteryListener implements Listener {
 		if(spower.containsKey(e.getBlock().getLocation())) {
 			p = spower.get(e.getBlock().getLocation());
 			
-			e.getPlayer().sendMessage("TETS");
 			spower.remove(e.getBlock().getLocation());
 			power.put(getItemStack(p, f), p);
 			e.setCancelled(true);

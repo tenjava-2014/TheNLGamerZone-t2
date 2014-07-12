@@ -21,13 +21,11 @@ public class BatteryTimer extends BukkitRunnable{
 
 	@Override
 	public void run() {
-		Bukkit.getPlayer("TheNLGamerZone").sendMessage("TEST");
 		for(Location loc : BatteryListener.getPlacedBatteries()) {
-			Bukkit.getPlayer("TheNLGamerZone").sendMessage("TEST");
 			loc.getWorld().playEffect(loc, Effect.MOBSPAWNER_FLAMES, 1);
 			BatteryListener.setPower(loc, BatteryListener.getPower(loc) - 1);
-			TenJava.data.set("Batteries." + loc.getX() + "-" + loc.getY() + "-" + loc.getZ() + "-" + loc.getWorld().getName(), BatteryListener.getPower(loc));
-			TenJava.saveData();
+			/*TenJava.data.set("Batteries." + TenJava.toConfigString(loc.getX()) + "_" + TenJava.toConfigString(loc.getY()) + "_" + TenJava.toConfigString(loc.getZ()) + "_" + loc.getWorld().getName(), BatteryListener.getPower(loc));
+			TenJava.saveData();*/
 			
 			if(BatteryListener.getPower(loc) <= 0) {
 				BatteryListener.spower.remove(loc);

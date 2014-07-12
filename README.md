@@ -31,5 +31,7 @@ Usage
 1. Install plugin
 2. Do things with it
 
-<!-- Hi, TheNLGamerZone! This is the default README for every ten.java submission. -->
-<!-- We encourage you to edit this README with some information about your submission – keep in mind you'll be scored on documentation! -->
+Plugin
+-----
+Sorry I don't have the plugin finished, didn't made it in time due to work and some other unplanned things. Please consider as my participation never happened :)
+You can see the code I already have, which totally isn't complete. I'll finish this plugin later on and put it on BukkitDev. I'll also participate next year and make it in time then (I hope :p).
