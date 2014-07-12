@@ -24,10 +24,10 @@ public class Battery extends FeatureBasics{
 	}
 	
 	public void setPower(Location loc, Integer power) {
-		BatteryListener.power.put(loc, power);
+		BatteryListener.spower.put(loc, power);
 	}
 	
 	public Set<Location> getPlacedBatteries() {
-		return BatteryListener.power.keySet();
+		return BatteryListener.spower.keySet();
 	}
 }

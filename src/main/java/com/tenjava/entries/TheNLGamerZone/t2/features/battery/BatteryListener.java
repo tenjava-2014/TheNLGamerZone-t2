@@ -1,5 +1,6 @@
 package com.tenjava.entries.TheNLGamerZone.t2.features.battery;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -14,20 +15,21 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.tenjava.entries.TheNLGamerZone.t2.Feature;
 import com.tenjava.entries.TheNLGamerZone.t2.TenJava;
 
 public class BatteryListener implements Listener {
 	private final TenJava plugin;
-	protected static Map<Location, Integer> power;
+	private Map<ItemStack, Integer> power = new HashMap<ItemStack, Integer>();
+	protected static Map<Location, Integer> spower = new HashMap<Location, Integer>();
 	
 	/**
 	 * @param plugin
 	 */
 	public BatteryListener(TenJava plugin) {
 		this.plugin = plugin;
-		power = new HashMap<Location, Integer>();
 	}
 	
 	@EventHandler
@@ -52,7 +54,7 @@ public class BatteryListener implements Listener {
 				}
 			}
 						
-			power.put(e.getBlock().getLocation(), p);
+			spower.put(e.getBlock().getLocation(), p);
 			power.remove(e.getPlayer().getItemInHand());
 		}
 	}
@@ -64,13 +66,24 @@ public class BatteryListener implements Listener {
 		Integer p = 0;
 				
 		if(e.getBlock().getType() == f.getBlock()
-				&& power.containsKey(e.getBlock().getLocation())) {
-			p = power.get(e.getBlock().getLocation());
+				&& spower.containsKey(e.getBlock().getLocation())) {
+			p = spower.get(e.getBlock().getLocation());
 			
+			spower.remove(e.getBlock().getLocation());
+			power.put(getItemStack(p, f), p);
 			e.setCancelled(true);
 			e.getBlock().setType(Material.AIR);
 			e.getBlock().getWorld().playEffect(e.getBlock().getLocation(), Effect.STEP_SOUND, e.getBlock().getData());
-			e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(Material.SADDLE));
+			e.getBlock().getWorld().dropItemNaturally(e.getBlock().getLocation(), getItemStack(p, f));
 		}
+	}
+	
+	private ItemStack getItemStack(Integer p, Feature f) {
+		ItemStack is = new ItemStack(f.getMaterial());
+		ItemMeta im = is.getItemMeta();
+		im.setDisplayName(f.getName());
+		im.setLore(Arrays.asList("Power: " + p));
+		is.setItemMeta(im);
+		return is;
 	}
 }
