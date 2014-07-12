@@ -22,7 +22,7 @@ import com.tenjava.entries.TheNLGamerZone.t2.TenJava;
 
 public class BatteryListener implements Listener {
 	private final TenJava plugin;
-	private Map<ItemStack, Integer> power = new HashMap<ItemStack, Integer>();
+	protected static Map<ItemStack, Integer> power = new HashMap<ItemStack, Integer>();
 	protected static Map<Location, Integer> spower = new HashMap<Location, Integer>();
 	
 	/**

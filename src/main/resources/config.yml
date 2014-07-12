@@ -1,5 +1,11 @@
-#Recharge power needed to recharge battery
+# Recharge power needed to recharge battery
 required-power: 2
 
-#Whether recharge power should be taken on recharge
+# Whether recharge power should be taken on recharge
 take-power: true
+
+# BatteryTimer delay in seconds. The amount of time when a battery loses one power when placed
+bt-delay: 10
+
+# BatteryRecharger delay in seconds. The amount of time when a battery regains one power when recharging
+br-delay: 5
