@@ -1,0 +1,5 @@
+#Recharge power needed to recharge battery
+required-power: 2
+
+#Whether recharge power should be taken on recharge
+take-power: true
