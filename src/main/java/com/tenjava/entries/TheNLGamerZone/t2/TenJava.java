@@ -1,5 +1,8 @@
 package com.tenjava.entries.TheNLGamerZone.t2;
 
+import java.util.Map;
+
+import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class TenJava extends JavaPlugin {

@@ -9,6 +9,10 @@ public abstract class FeatureBasics {
 	protected String name;
 	protected TenJava plugin;
 	
+	/**
+	 * @param name
+	 * @param plugin
+	 */
 	public FeatureBasics(String name, TenJava plugin) {
 		this.name = name;
 		this.plugin = plugin;
@@ -16,6 +20,10 @@ public abstract class FeatureBasics {
 	
 	public abstract void enableFeature();
 	
+	/**
+	 * Registers listener
+	 * @param l Listener to register
+	 */
 	protected void registerListener(Listener l) {
 		Bukkit.getPluginManager().registerEvents(l, plugin);
 	}
