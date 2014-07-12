@@ -9,3 +9,9 @@ bt-delay: 10
 
 # BatteryRecharger delay in seconds. The amount of time when a battery regains one power when recharging
 br-delay: 5
+
+# Overcharge enabled? Will batteries explode when they're overcharged? 
+overcharge: true
+
+# Max power, if above is set to 'true' an explosion will occur when reached
+max-power: 5

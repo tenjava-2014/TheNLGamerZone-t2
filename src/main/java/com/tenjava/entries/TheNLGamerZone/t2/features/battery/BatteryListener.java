@@ -34,7 +34,7 @@ public class BatteryListener implements Listener {
 	
 	@EventHandler
 	public void onBatteryPlace(BlockPlaceEvent e) {
-		Feature f = Feature.valueOf("BATTERY");
+		Feature f = Feature.BATTERY;
 				
 		if(e.getPlayer().getItemInHand() != null 
 				&& e.getPlayer().getItemInHand().getType().equals(f.getMaterial()) 
@@ -53,6 +53,12 @@ public class BatteryListener implements Listener {
 					return;
 				}
 			}
+			
+			if(p <= 0) {
+				e.getPlayer().sendMessage(ChatColor.RED + "That battery is empty! Recharge it first!");
+				e.setCancelled(true);
+				return;
+			}
 						
 			spower.put(e.getBlock().getLocation(), p);
 			power.remove(e.getPlayer().getItemInHand());
@@ -62,7 +68,7 @@ public class BatteryListener implements Listener {
 	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
-		Feature f = Feature.valueOf("BATTERY");
+		Feature f = Feature.BATTERY;
 		Integer p = 0;
 				
 		if(e.getBlock().getType() == f.getBlock()
@@ -78,7 +84,7 @@ public class BatteryListener implements Listener {
 		}
 	}
 	
-	private ItemStack getItemStack(Integer p, Feature f) {
+	public static ItemStack getItemStack(Integer p, Feature f) {
 		ItemStack is = new ItemStack(f.getMaterial());
 		ItemMeta im = is.getItemMeta();
 		im.setDisplayName(f.getName());
