@@ -17,6 +17,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.tenjava.entries.TheNLGamerZone.t2.features.battery.Battery;
+import com.tenjava.entries.TheNLGamerZone.t2.features.battery.BatteryListener;
 import com.tenjava.entries.TheNLGamerZone.t2.features.battery.BatteryTimer;
 
 public class TenJava extends JavaPlugin {
@@ -72,9 +73,9 @@ public class TenJava extends JavaPlugin {
 			for(String s : data.getConfigurationSection("Batteries").getKeys(false)) {
 				if(Integer.parseInt(s) <= 0) continue;
 				
-				String[] ss = s.split(":");
+				String[] ss = s.split(";");
 				Location loc = new Location(Bukkit.getWorld(ss[3]), Double.parseDouble(ss[0]), Double.parseDouble(ss[1]), Double.parseDouble(ss[2]));
-				Battery.setPower(loc, Integer.parseInt(s));
+				BatteryListener.setPower(loc, Integer.parseInt(s));
 			}
 		}
 		
@@ -85,9 +86,11 @@ public class TenJava extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		//Save all the placed batteries
-		for(Location loc : Battery.getPlacedBatteries()) {
-			data.set("Batteries." + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getWorld().getName(), Battery.getPower(loc));
+		for(Location loc : BatteryListener.getPlacedBatteries()) {
+			data.set("Batteries." + loc.getX() + "-" + loc.getY() + "-" + loc.getZ() + "-" + loc.getWorld().getName(), BatteryListener.getPower(loc));
 		}
+		
+		saveData();
 		
 		setPlugin(null);
 		dFile = null;
@@ -108,5 +111,13 @@ public class TenJava extends JavaPlugin {
 		is.setItemMeta(im);
 		p.getInventory().addItem(is);
 		return false;
+	}
+	
+	public static void saveData() {
+		try {
+			data.save(dFile);
+		} catch(IOException e) {
+			Bukkit.getLogger().log(Level.SEVERE, "Couldn't save data.yml!");
+		}
 	}
 }

@@ -3,6 +3,7 @@ package com.tenjava.entries.TheNLGamerZone.t2.features.battery;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -59,9 +60,12 @@ public class BatteryListener implements Listener {
 				e.setCancelled(true);
 				return;
 			}
-						
+			
+			e.getBlock().setType(Material.REDSTONE_BLOCK);
 			spower.put(e.getBlock().getLocation(), p);
 			power.remove(e.getPlayer().getItemInHand());
+			TenJava.data.set("Batteries." + e.getBlock().getLocation().getX() + "-" + e.getBlock().getLocation().getY() + "-" + e.getBlock().getLocation().getZ() + "-" + e.getBlock().getLocation().getWorld().getName(), power);
+			TenJava.saveData();
 		}
 	}
 	
@@ -71,8 +75,7 @@ public class BatteryListener implements Listener {
 		Feature f = Feature.BATTERY;
 		Integer p = 0;
 				
-		if(e.getBlock().getType() == f.getBlock()
-				&& spower.containsKey(e.getBlock().getLocation())) {
+		if(spower.containsKey(e.getBlock().getLocation())) {
 			p = spower.get(e.getBlock().getLocation());
 			
 			spower.remove(e.getBlock().getLocation());
@@ -91,5 +94,25 @@ public class BatteryListener implements Listener {
 		im.setLore(Arrays.asList("Power: " + p));
 		is.setItemMeta(im);
 		return is;
+	}
+	
+	public static void setPower(Location loc, Integer power) {
+		BatteryListener.spower.put(loc, power);
+	}
+	
+	public static void setPower(ItemStack is, Integer power) {
+		BatteryListener.power.put(is, power);
+	}
+	
+	public static Set<Location> getPlacedBatteries() {
+		return BatteryListener.spower.keySet();
+	}
+	
+	public static Integer getPower(Location loc) {
+		return BatteryListener.spower.get(loc);
+	}
+	
+	public static Integer getPower(ItemStack is) {
+		return BatteryListener.power.get(is);
 	}
 }

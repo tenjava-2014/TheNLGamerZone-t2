@@ -12,8 +12,8 @@ import com.tenjava.entries.TheNLGamerZone.t2.features.battery.Battery;
 
 public enum Feature {
 	BATTERY(ChatColor.YELLOW + "Battery", Battery.class, Material.STONE, Material.STONE)
-	, CHARGER_POWER_SUPPLY(ChatColor.YELLOW + "Charger power supply", null, Material.SADDLE, Material.SAND)
-	, CHARGER(ChatColor.YELLOW + "Charger", null, Material.RAILS, Material.BEDROCK);
+	/*, CHARGER_POWER_SUPPLY(ChatColor.YELLOW + "Charger power supply", null, Material.SADDLE, Material.SAND)
+	, CHARGER(ChatColor.YELLOW + "Charger", null, Material.RAILS, Material.BEDROCK)*/;
 	
 	private final String name;
 	private final Class<? extends FeatureBasics> fbClass;

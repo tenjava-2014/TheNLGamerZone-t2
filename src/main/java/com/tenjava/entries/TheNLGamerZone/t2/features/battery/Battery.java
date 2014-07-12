@@ -23,26 +23,4 @@ public class Battery extends FeatureBasics{
 	public void disableFeatures() { 
 		//Does nothing, Feature class deals with this
 	}
-	
-	public static void setPower(Location loc, Integer power) {
-		BatteryListener.spower.put(loc, power);
-		TenJava.data.set("Batteries." + loc.getX() + ":" + loc.getY() + ":" + loc.getZ() + ":" + loc.getWorld().getName(), power);
-	}
-	
-	public static void setPower(ItemStack is, Integer power) {
-		BatteryListener.power.put(is, power);
-	}
-	
-	public static Set<Location> getPlacedBatteries() {
-		return BatteryListener.spower.keySet();
-	}
-	
-	public static Integer getPower(Location loc) {
-		return BatteryListener.spower.get(loc);
-	}
-	
-	public static Integer getPower(ItemStack is) {
-		return BatteryListener.power.get(is);
-
-	}
 }
