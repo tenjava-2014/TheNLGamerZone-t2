@@ -61,6 +61,7 @@ public class BatteryListener implements Listener {
 				return;
 			}
 			
+			e.getPlayer().sendMessage("TETS");
 			e.getBlock().setType(Material.REDSTONE_BLOCK);
 			spower.put(e.getBlock().getLocation(), p);
 			power.remove(e.getPlayer().getItemInHand());
@@ -78,6 +79,7 @@ public class BatteryListener implements Listener {
 		if(spower.containsKey(e.getBlock().getLocation())) {
 			p = spower.get(e.getBlock().getLocation());
 			
+			e.getPlayer().sendMessage("TETS");
 			spower.remove(e.getBlock().getLocation());
 			power.put(getItemStack(p, f), p);
 			e.setCancelled(true);

@@ -73,12 +73,13 @@ public class TenJava extends JavaPlugin {
 			for(String s : data.getConfigurationSection("Batteries").getKeys(false)) {
 				if(Integer.parseInt(s) <= 0) continue;
 				
-				String[] ss = s.split(";");
+				String[] ss = s.split("-");
 				Location loc = new Location(Bukkit.getWorld(ss[3]), Double.parseDouble(ss[0]), Double.parseDouble(ss[1]), Double.parseDouble(ss[2]));
 				BatteryListener.setPower(loc, Integer.parseInt(s));
 			}
 		}
 		
+		Bukkit.broadcastMessage("LALA");
 		//Start battery timer
 		new BatteryTimer(this);
 	}
