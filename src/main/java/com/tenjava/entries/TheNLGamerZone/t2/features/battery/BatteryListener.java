@@ -6,6 +6,7 @@ import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -30,28 +31,24 @@ public class BatteryListener implements Listener {
 	@EventHandler
 	public void onBatteryPlace(BlockPlaceEvent e) {
 		Feature f = Feature.valueOf("BATTERY");
-		
+				
 		if(e.getPlayer().getItemInHand() != null 
 				&& e.getPlayer().getItemInHand().getType().equals(f.getMaterial()) 
 				&& e.getPlayer().getItemInHand().hasItemMeta()
 				&& e.getPlayer().getItemInHand().getItemMeta().hasDisplayName()
 				&& e.getPlayer().getItemInHand().getItemMeta().hasLore()
-				&& e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals(f.getName())
-				&& e.getPlayer().getItemInHand().getItemMeta().getLore().contains("Power:")) {
-			
+				&& e.getPlayer().getItemInHand().getItemMeta().getDisplayName().equals(f.getName())) {
 			Integer p = 0;
 			for(String s : e.getPlayer().getItemInHand().getItemMeta().getLore()) {
 				if(!s.contains("Power:")) continue;
-				
+
 				try {
-					p = Integer.parseInt(ChatColor.stripColor(s).split(":")[1]);
+					p = Integer.parseInt(ChatColor.stripColor(s).split(" ")[1]);
 				} catch(NumberFormatException ex) {
 					Bukkit.getLogger().log(Level.SEVERE, "Failed to get power from battery!");
 					return;
 				}
 			}
-			
-			e.getPlayer().sendMessage("" + p);
 						
 			power.put(e.getPlayer().getItemInHand(), p);
 		}

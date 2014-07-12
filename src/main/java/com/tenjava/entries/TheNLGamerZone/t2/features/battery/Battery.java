@@ -11,7 +11,7 @@ public class Battery extends FeatureBasics{
 
 	@Override
 	public void enableFeatures() {
-		registerListener(null);
+		registerListener(new BatteryListener(plugin));
 	}
 
 	@Override

@@ -68,7 +68,7 @@ public enum Feature {
 			fb.enableFeatures();
 		} else {
 			try {
-				Constructor<? extends FeatureBasics> c = fbClass.getConstructor(TenJava.class, String.class);
+				Constructor<? extends FeatureBasics> c = fbClass.getConstructor(String.class, TenJava.class);
 				this.fb = c.newInstance(name, plugin);
 			} catch(Exception e) {
 				Bukkit.getLogger().log(Level.SEVERE, "Failed to start feature");
