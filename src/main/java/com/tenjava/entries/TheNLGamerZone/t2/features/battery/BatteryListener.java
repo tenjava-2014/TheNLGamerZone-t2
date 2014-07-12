@@ -31,6 +31,7 @@ public class BatteryListener implements Listener {
 	public BatteryListener(TenJava plugin) {
 		this.plugin = plugin;
 		power = new HashMap<ItemStack, Integer>();
+		spower = new HashMap<Location, Integer>();
 	}
 	
 	@EventHandler
@@ -64,19 +65,19 @@ public class BatteryListener implements Listener {
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
 		Feature f = Feature.valueOf("BATTERY");
 		Integer p = 0;
 		
-		if(e.getBlock().getType().equals(f.getMaterial())
+		e.getPlayer().sendMessage("1");
+		
+		if(e.getBlock().getType() == f.getBlock()
 				&& spower.containsKey(e.getBlock().getLocation())) {
+			e.getPlayer().sendMessage("2");
 			p = spower.get(e.getBlock().getLocation());
-			e.setCancelled(true);
-			e.getBlock().setType(Material.AIR);
-			e.getBlock().getWorld().playEffect(e.getBlock().getLocation(), Effect.STEP_SOUND, e.getBlock().getData());
-			e.getBlock().getWorld().dropItem(e.getBlock().getLocation(), new ItemStack(f.getMaterial()));
+			
+			e.getPlayer().sendMessage("Power: " + p);
 		}
 	}
 }
